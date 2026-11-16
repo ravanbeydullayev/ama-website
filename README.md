@@ -1,26 +1,23 @@
-# AMA Website — Deployment V2
+# AMA Website — Deployment V3
 
-This package consolidates the approved AMA page designs into a navigable static-site structure for Cloudflare Pages.
+This package fixes the static-site routing and language-switching structure for Cloudflare Pages.
 
-## Entry points
-- Azerbaijani homepage: `index.html`
-- English homepage: `en/home.html`
+## Entry pages
+- Azerbaijani: `index.html`
+- English: `en/home.html`
 
-## Main pages
-`about.html`, `activities.html`, `projects.html`, `media.html`, `contact.html`, `login.html`, `student-membership.html`, `professional-membership.html`, `corporate-membership.html`, `dashboard.html`, `terms.html`, `privacy.html`, `cookie-policy.html`.
+## Board navigation
+The “İdarə Heyəti” / “Board of Directors” navigation item opens the dedicated page: `board.html` (AZ) or `en/board.html` (EN). The page contains the founding team and the separate Board of Directors group. It does **not** redirect to a homepage anchor.
 
-## Navigation fixes
-- Homepage navigation now opens the corresponding standalone pages.
-- Board navigation returns to the Board section on the homepage (`index.html#board` / `en/home.html#board`), not a separate route.
-- Membership navigation returns to the homepage membership section.
-- Login and membership CTAs point to the matching pages.
-- AZ/EN controls navigate between paired page paths.
+## Language switching
+Language controls use absolute site-root paths, so selecting English from an English page cannot create repeated `/en/en/` segments. Each paired page switches to its counterpart.
 
-## Translation status — important
-This is a navigation and deployment-structure repair. The English copies have English metadata and phrase-level translations for shared interface labels and key headings, but long-form body copy and some detailed page content still require full editorial translation before the English site should be treated as production-complete. Do not represent all English page text as fully translated yet.
+## Deploy to Cloudflare Pages
+1. Open the GitHub repository `ravanbeydullayev/ama-website`.
+2. Upload **the contents of this folder** to the repository root (not the outer folder itself).
+3. Commit the changes to `main`.
+4. In Cloudflare Pages, keep Framework preset `None`, Build command blank, Build output directory `.` and Root directory `/`.
+5. Wait for the automatic deployment, then test `index.html`, the EN switch, each menu link, and the Board page.
 
-## Backend limitations
-Membership payments, authentication, dashboard data, form submissions, CV uploads, and admin operations remain frontend prototypes until connected to secure backend services.
-
-## Deploy
-Upload the contents of this folder to the root of the `ama-website` GitHub repository. Keep Cloudflare Pages build command blank and output directory `.`.
+## Important
+This is a static HTML site. Authentication, payments, forms, uploads, and member dashboard data still need backend integration. The Cookie Policy is a draft pending legal review.

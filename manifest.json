@@ -1,30 +1,54 @@
 {
   "project": "AMA Website",
-  "version": "2.0-navigation-repair",
+  "version": "3.0-routing-and-language-fix",
   "entrypoints": {
     "az": "index.html",
     "en": "en/home.html"
   },
+  "board_navigation": {
+    "az": "board.html",
+    "en": "en/board.html",
+    "content": "Founding team and Board of Directors are shown on the standalone Board page."
+  },
+  "language_switching": "Absolute paths; no nested /en/en/... path construction.",
   "pages": [
-    "index.html",
     "about.html",
     "activities.html",
-    "projects.html",
-    "media.html",
+    "board-preview.html",
+    "board.html",
     "contact.html",
-    "login.html",
-    "student-membership.html",
-    "professional-membership.html",
+    "cookie-policy.html",
     "corporate-membership.html",
     "dashboard.html",
-    "terms.html",
+    "en/about.html",
+    "en/activities.html",
+    "en/board-preview.html",
+    "en/board.html",
+    "en/contact.html",
+    "en/cookie-policy.html",
+    "en/corporate-membership.html",
+    "en/dashboard.html",
+    "en/home.html",
+    "en/login.html",
+    "en/media.html",
+    "en/privacy.html",
+    "en/professional-membership.html",
+    "en/projects.html",
+    "en/student-membership.html",
+    "en/terms.html",
+    "index.html",
+    "login.html",
+    "media.html",
     "privacy.html",
-    "cookie-policy.html",
-    "board-preview.html"
+    "professional-membership.html",
+    "projects.html",
+    "student-membership.html",
+    "terms.html"
   ],
-  "english_status": "phrase-level UI translation; full editorial translation still required",
-  "routing": {
-    "board": "index.html#board",
-    "membership": "index.html#membership"
-  }
+  "notes": [
+    "Static HTML deployment for Cloudflare Pages.",
+    "The board navigation opens the dedicated Board page, not the homepage anchor.",
+    "Backend-dependent features remain prototypes until integrated with secure services.",
+    "Cookie policy is included as a draft and should receive legal review before production."
+  ]
 }
