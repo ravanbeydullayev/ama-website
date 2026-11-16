@@ -300,42 +300,4 @@ document.getElementById('changePassword').addEventListener('click',()=>{
 });
 
 </script>
-
-<style>
-#ama-language-switch{position:fixed;right:18px;bottom:18px;z-index:99999;display:flex;gap:4px;padding:5px;background:#fff;border:1px solid #ddd;border-radius:999px;box-shadow:0 5px 22px rgba(0,0,0,.14);font:600 12px Arial,sans-serif}
-#ama-language-switch button{border:0;border-radius:999px;padding:8px 12px;background:transparent;color:#333;cursor:pointer}
-#ama-language-switch button.active{background:#171717;color:#fff}
-#google_translate_element{position:fixed!important;left:-9999px!important;top:-9999px!important}
-.goog-te-banner-frame,.skiptranslate iframe{display:none!important}body{top:0!important}
-</style>
-<div aria-label="Language" id="ama-language-switch">
-<button data-ama-lang="az" type="button">AZ</button><button data-ama-lang="en" type="button">EN</button>
-</div><div id="google_translate_element"></div>
-<script>
-(function(){
- const key='ama_site_language';
- const pathIsEnglish=location.pathname.indexOf('/en/')===0;
- let lang=localStorage.getItem(key)||(pathIsEnglish?'en':'az');
- function paint(){document.querySelectorAll('[data-ama-lang]').forEach(b=>b.classList.toggle('active',b.dataset.amaLang===lang));}
- function applyLanguage(next){
-   lang=next; localStorage.setItem(key,lang); paint();
-   if(lang==='az'){
-     const combo=document.querySelector('.goog-te-combo');
-     if(combo){combo.value='';combo.dispatchEvent(new Event('change'));}
-     document.cookie='googtrans=/az/az;path=/';
-   } else {
-     const combo=document.querySelector('.goog-te-combo');
-     if(combo){combo.value='en';combo.dispatchEvent(new Event('change'));}
-     else {document.cookie='googtrans=/az/en;path=/'; location.reload();}
-   }
- }
- window.amaGoogleTranslateInit=function(){
-   new google.translate.TranslateElement({pageLanguage:'az',includedLanguages:'en',autoDisplay:false},'google_translate_element');
-   setTimeout(()=>{if(lang==='en'){const c=document.querySelector('.goog-te-combo');if(c){c.value='en';c.dispatchEvent(new Event('change'));}}},700);
- };
- document.addEventListener('click',e=>{const b=e.target.closest('[data-ama-lang]');if(b)applyLanguage(b.dataset.amaLang);});
- paint();
- const s=document.createElement('script');s.src='https://translate.google.com/translate_a/element.js?cb=amaGoogleTranslateInit';s.async=true;document.head.appendChild(s);
-})();
-</script>
-</body></html>
+<script>(function(){const enPath="en/dashboard.html";const azPath="dashboard.html";document.querySelectorAll('[data-lang]').forEach(function(b){b.addEventListener('click',function(){const lang=b.getAttribute('data-lang');if(lang==='en'){location.href=enPath;}else{location.href=azPath;}});});})();</script></body></html>

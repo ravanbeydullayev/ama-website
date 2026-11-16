@@ -1,88 +1,30 @@
 {
   "project": "AMA Website",
-  "package_type": "static HTML integration preview",
-  "default_language": "az",
-  "language_switch": "persistent AZ/EN switch on each page; EN via Google Translate runtime widget",
+  "version": "2.0-navigation-repair",
+  "entrypoints": {
+    "az": "index.html",
+    "en": "en/home.html"
+  },
   "pages": [
-    {
-      "path": "index.html",
-      "source": "AMA-Homepage-V16-Cookie-Consent.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "about.html",
-      "source": "ama-about-page-preview-v4.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "activities.html",
-      "source": "ama-activities-page-preview-v2.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "board-preview.html",
-      "source": "ama-board-section-sheet-v4.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "contact.html",
-      "source": "ama-contact-page-preview-v3.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "cookie-policy.html",
-      "source": "ama-cookie-policy-preview-v1.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "corporate-membership.html",
-      "source": "ama-corporate-membership-preview-v2.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "login.html",
-      "source": "ama-login-page-preview-v5.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "media.html",
-      "source": "ama-media-section-sheet-v2.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "dashboard.html",
-      "source": "ama-member-dashboard-preview-v9.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "privacy.html",
-      "source": "ama-privacy-policy-preview-v1.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "professional-membership.html",
-      "source": "ama-professional-membership-approved.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "projects.html",
-      "source": "ama-projects-page-preview-v2.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "student-membership.html",
-      "source": "ama-student-membership-approved.html",
-      "status": "source integrated; English runtime translation layer"
-    },
-    {
-      "path": "terms.html",
-      "source": "ama-terms-of-use-preview-v1.html",
-      "status": "source integrated; English runtime translation layer"
-    }
+    "index.html",
+    "about.html",
+    "activities.html",
+    "projects.html",
+    "media.html",
+    "contact.html",
+    "login.html",
+    "student-membership.html",
+    "professional-membership.html",
+    "corporate-membership.html",
+    "dashboard.html",
+    "terms.html",
+    "privacy.html",
+    "cookie-policy.html",
+    "board-preview.html"
   ],
-  "notes": [
-    "board-preview.html is a review sheet; navigation targets homepage #board",
-    "cookie policy remains draft",
-    "backend functions are prototypes"
-  ]
+  "english_status": "phrase-level UI translation; full editorial translation still required",
+  "routing": {
+    "board": "index.html#board",
+    "membership": "index.html#membership"
+  }
 }
