@@ -1,23 +1,15 @@
-# AMA Website — Deployment V3
+# AMA Website Deployment V4
 
-This package fixes the static-site routing and language-switching structure for Cloudflare Pages.
+This package updates the V3 static site routing and navigation.
 
-## Entry pages
-- Azerbaijani: `index.html`
-- English: `en/home.html`
+## Fixes included
+- Privacy Policy, Terms of Use and Cookie Policy links now point to their dedicated pages (including English routes).
+- Membership calls-to-action on both homepages now open the matching Student, Professional or Corporate membership application page rather than the login page.
+- Language toggles now switch to the matching AZ/EN page pair and preserve the current section route.
+- English pages have an initial visible-copy translation pass; review all wording before production publication.
+- Separate Board page remains available at `/board.html` and `/en/board.html`.
 
-## Board navigation
-The “İdarə Heyəti” / “Board of Directors” navigation item opens the dedicated page: `board.html` (AZ) or `en/board.html` (EN). The page contains the founding team and the separate Board of Directors group. It does **not** redirect to a homepage anchor.
+## Deploy
+Upload the contents of this folder to the root of the `ama-website` GitHub repository, replacing same-named files. Cloudflare Pages is configured for automatic deployment from `main`.
 
-## Language switching
-Language controls use absolute site-root paths, so selecting English from an English page cannot create repeated `/en/en/` segments. Each paired page switches to its counterpart.
-
-## Deploy to Cloudflare Pages
-1. Open the GitHub repository `ravanbeydullayev/ama-website`.
-2. Upload **the contents of this folder** to the repository root (not the outer folder itself).
-3. Commit the changes to `main`.
-4. In Cloudflare Pages, keep Framework preset `None`, Build command blank, Build output directory `.` and Root directory `/`.
-5. Wait for the automatic deployment, then test `index.html`, the EN switch, each menu link, and the Board page.
-
-## Important
-This is a static HTML site. Authentication, payments, forms, uploads, and member dashboard data still need backend integration. The Cookie Policy is a draft pending legal review.
+Note: authentication, payment processing, member approval, and application persistence still require backend integration.
