@@ -254,5 +254,98 @@ body.dark .logo.logo-dark{display:block}
 </section>
 <section class="page" id="help"><div class="eyebrow">MEMBER SUPPORT</div><div class="page-head"><div><h1>Dəstək</h1><p>Üzvlük və şəxsi kabinetlə bağlı müraciətlər.</p></div></div><div class="panel" style="max-width:600px"><b>AMA üzv dəstəyi</b><p class="subtle">E-poçt: info@ama.org.az</p></div></section>
 </div></main></div>
+<script>
+const names={home:'Dashboard',passport:'AMA Passport',events:'Tədbirlər 2027',store:'AMA Store',loyalty:'Loyallıq və points',tools:'Marketinq alətləri',academy:'Marketinq dərsləri',cvbank:'CV Bankı',profile:'Profil məlumatları',settings:'Ayarlar',help:'Dəstək'};
+function page(id){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===id));document.getElementById('crumb').textContent=names[id]||'Dashboard';const activeNav=document.querySelector('[data-page=\"'+id+'\"]');if(activeNav&&window.matchMedia('(max-width: 620px)').matches)activeNav.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('[data-page]').forEach(x=>x.addEventListener('click',()=>page(x.dataset.page)));
+document.querySelectorAll('[data-go]').forEach(x=>x.addEventListener('click',()=>page(x.dataset.go)));
+document.querySelectorAll('[data-tool]').forEach(x=>x.addEventListener('click',()=>{page('tools');selectCalc(x.dataset.tool)}));
+let points=1250;function fmt(n){return Math.max(0,n).toLocaleString('en-US')}function renderPoints(){['homePoints','sidePoints','loyaltyPoints'].forEach(id=>document.getElementById(id).textContent=fmt(points));['pointsProgress','loyaltyProgress'].forEach(id=>document.getElementById(id).style.width=Math.min(100,points/2000*100)+'%')}
+function calcPoints(){let price=Math.max(0,+document.getElementById('productPrice').value||0),use=Math.min(points,Math.max(0,+document.getElementById('usePoints').value||0)),bonus=Math.min(price,use/100);document.getElementById('bonusValue').textContent=bonus.toFixed(2)+' AZN';document.getElementById('cashDue').textContent=(price-bonus).toFixed(2)+' AZN'}document.getElementById('calcPoints').addEventListener('click',calcPoints);calcPoints();renderPoints();
+function selectCalc(id){document.querySelectorAll('.calc-panel').forEach(x=>x.style.display=x.id==='calc-'+id?'block':'none');document.querySelectorAll('[data-calc]').forEach(x=>x.classList.toggle('active',x.dataset.calc===id))}
+document.querySelectorAll('[data-calc]').forEach(x=>x.addEventListener('click',()=>selectCalc(x.dataset.calc)));
+const num=id=>Math.max(0,+document.getElementById(id).value||0),out=(id,s)=>document.getElementById(id).innerHTML=s;
+function calcROI(){let r=num('roiRevenue'),c=num('roiCost');out('roiResult','ROI nəticəsi: <b>'+(c?((r-c)/c*100).toFixed(2):'—')+'%</b>')}
+function calcCPM(){let c=num('cpmCost'),i=num('cpmImpr');out('cpmResult','CPM: <b>'+(i?(c/i*1000).toFixed(2):'—')+' AZN</b>')}
+function calcCTR(){let c=num('ctrClicks'),i=num('ctrImpr');out('ctrResult','CTR: <b>'+(i?(c/i*100).toFixed(2):'—')+'%</b>')}
+function calcCPC(){let c=num('cpcCost'),i=num('cpcClicks');out('cpcResult','CPC: <b>'+(i?(c/i).toFixed(2):'—')+' AZN</b>')}
+function calcBE(){let f=num('beFixed'),p=num('bePrice'),v=num('beVariable');out('beResult','Break-even satış həcmi: <b>'+(p>v?Math.ceil(f/(p-v)).toLocaleString('en-US')+' vahid':'Qiymət dəyişən xərci üstələməlidir')+'</b>')}
+function calcConv(){let s=num('convSales'),l=num('convLeads');out('convResult','Conversion rate: <b>'+(l?(s/l*100).toFixed(2):'—')+'%</b>')}
+document.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.course').forEach(c=>c.style.display=btn.dataset.lang==='all'||c.dataset.language===btn.dataset.lang?'flex':'none')}));
+document.getElementById('photoInput').addEventListener('change',e=>{let f=e.target.files[0];if(!f)return;let url=URL.createObjectURL(f);['largeAvatar','sideAvatar','topAvatar'].forEach(id=>{let el=document.getElementById(id);el.innerHTML='<img src="'+url+'" alt="Profil şəkli">'})});
+document.getElementById('cvFilter').addEventListener('change',e=>{document.querySelectorAll('.cv-card').forEach(card=>card.style.display=e.target.value==='all'||card.dataset.role===e.target.value?'block':'none')});
+document.getElementById('uploadCV').addEventListener('click',()=>{let f=document.getElementById('cvFile').files[0];let ok=document.getElementById('cvConsent').checked;if(!f){document.getElementById('cvUploadMsg').textContent='Zəhmət olmasa PDF faylı seçin.';return}if(f.type!=='application/pdf'){document.getElementById('cvUploadMsg').textContent='Yalnız PDF formatı qəbul edilir.';return}if(!ok){document.getElementById('cvUploadMsg').textContent='CV-nin işəgötürənlərə açılması üçün razılıq xanasını işarələyin.';return}document.getElementById('cvUploadMsg').textContent='Demo: CV seçildi və razılıq verildi. Real yükləmə üçün server inteqrasiyası tələb olunur.'});
+document.getElementById('saveProfile').addEventListener('click',()=>{let name=document.getElementById('firstName').value+' '+document.getElementById('lastName').value;document.querySelector('.top-right span').textContent=name;document.getElementById('profileMsg').textContent='Demo: profil məlumatları yeniləndi.'});
 
-<script>(function(){var az="/dashboard.html",en="/en/dashboard.html";document.querySelectorAll('[data-lang]').forEach(function(b){b.addEventListener('click',function(){location.href=b.getAttribute('data-lang')==='en'?en:az;});});})();</script></body></html>
+// Appearance and account preferences (prototype: saved in this browser only)
+const prefKeys=['emailNotifications','eventNotifications','partnerNotifications','cvVisibility','profileVisibility','siteLanguage','twoFactor'];
+function applyTheme(theme){
+  document.body.classList.toggle('dark',theme==='dark');
+  document.querySelectorAll('[data-theme-choice]').forEach(b=>b.classList.toggle('active',b.dataset.themeChoice===theme));
+  try{localStorage.setItem('ama-theme',theme)}catch(e){}
+}
+let savedTheme='light';try{savedTheme=localStorage.getItem('ama-theme')||'light'}catch(e){}
+applyTheme(savedTheme);
+document.querySelectorAll('[data-theme-choice]').forEach(b=>b.addEventListener('click',()=>applyTheme(b.dataset.themeChoice)));
+function loadSettings(){
+  prefKeys.forEach(id=>{let el=document.getElementById(id);if(!el)return;try{let val=localStorage.getItem('ama-pref-'+id);if(val!==null){if(el.type==='checkbox')el.checked=val==='true';else el.value=val}}catch(e){}});
+}
+loadSettings();
+document.getElementById('saveSettings').addEventListener('click',()=>{
+  prefKeys.forEach(id=>{let el=document.getElementById(id);if(!el)return;try{localStorage.setItem('ama-pref-'+id,el.type==='checkbox'?String(el.checked):el.value)}catch(e){}});
+  document.getElementById('settingsMsg').textContent='Ayarlar bu brauzerdə yadda saxlanıldı.';
+});
+document.getElementById('changePassword').addEventListener('click',()=>{
+  document.getElementById('settingsMsg').textContent='Şifrə dəyişmə funksiyası real hesab sistemi və backend inteqrasiyası ilə aktivləşdiriləcək.';
+});
+
+</script>
+
+<style>
+#ama-language-switch{position:fixed;right:18px;bottom:18px;z-index:99999;display:flex;gap:4px;padding:5px;background:#fff;border:1px solid #ddd;border-radius:999px;box-shadow:0 5px 22px rgba(0,0,0,.14);font:600 12px Arial,sans-serif}
+#ama-language-switch button{border:0;border-radius:999px;padding:8px 12px;background:transparent;color:#333;cursor:pointer}
+#ama-language-switch button.active{background:#171717;color:#fff}
+
+.
+</style>
+<div aria-label="Language" id="ama-language-switch">
+<button data-ama-lang="az" type="button">AZ</button><button data-ama-lang="en" type="button">EN</button>
+</div>
+<script>
+(function(){
+  const currentPath = window.location.pathname;
+  const isEnglish = currentPath === '/en' || currentPath.startsWith('/en/');
+  const file = currentPath.split('/').filter(Boolean).pop() || 'index.html';
+  const page = file.replace(/\.html?$/i, '');
+  const englishMap = {
+    'index': 'home',
+    'home': 'home',
+    'about-az': 'about', 'activities-az': 'activities',
+    'projects-az': 'projects', 'contact-az': 'contact',
+    'media-az': 'media', 'board-preview-az': 'board-preview',
+    'student-membership-az': 'student-membership',
+    'professional-membership-az': 'professional-membership',
+    'corporate-membership-az': 'corporate-membership',
+    'dashboard-az': 'dashboard', 'privacy-az': 'privacy',
+    'terms-az': 'terms', 'cookie-policy-az': 'cookie-policy'
+  };
+  const azMap = Object.fromEntries(Object.entries(englishMap).map(([a,e])=>[e,a]));
+  const englishPage = englishMap[page] || page;
+  const azPage = azMap[page] || page;
+  const target = lang => lang === 'en'
+    ? '/en/' + englishPage + '.html'
+    : '/' + (azPage === 'home' ? 'index' : azPage) + '.html';
+  document.querySelectorAll('[data-ama-lang]').forEach(button => {
+    const active = (button.dataset.amaLang === 'en') === isEnglish;
+    button.classList.toggle('active', active);
+    button.addEventListener('click', () => {
+      const next = button.dataset.amaLang;
+      try { localStorage.setItem('ama_site_language', next); } catch(e) {}
+      window.location.href = target(next);
+    });
+  });
+  const brand = document.querySelector('a.brand');
+  if (brand) brand.href = isEnglish ? '/en/home.html' : '/index.html';
+})();
+</script>
+</body></html>
